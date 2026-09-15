@@ -9,15 +9,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
+function messageFromAuthError(code: string | null) {
+  if (!code) return null;
+  if (code === "Configuration") {
+    return "Server auth is misconfigured. Set AUTH_SECRET in Vercel and redeploy.";
+  }
+  if (code === "CredentialsSignin") {
+    return "Invalid email or password";
+  }
+  return "Sign-in failed. Try again.";
+}
+
 export default function AdminLoginForm() {
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/admin/dashboard";
   const [error, setError] = useState<string | null>(
-    searchParams.get("error") ? "Invalid email or password" : null
+    messageFromAuthError(searchParams.get("error"))
   );
   const [pending, startTransition] = useTransition();
 
   return (
-    <div className="flex min-h-[70vh] items-center justify-center">
+    <div className="flex min-h-[70vh] items-center justify-center px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
@@ -39,9 +51,17 @@ export default function AdminLoginForm() {
             }}
             className="space-y-4"
           >
+            <input type="hidden" name="callbackUrl" value={callbackUrl} />
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" required autoComplete="username" />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="username"
+                defaultValue="abelhailu0427@gmail.com"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
