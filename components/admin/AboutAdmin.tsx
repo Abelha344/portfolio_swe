@@ -194,7 +194,21 @@ export function AboutAdmin({
           </div>
           <div className="space-y-2">
             <Label>Avatar URL</Label>
-            <Input {...form.register("avatarUrl")} />
+            <Input
+              {...form.register("avatarUrl")}
+              placeholder="/images/profile.jpg or https://..."
+            />
+            <p className="text-xs text-muted-foreground">
+              Local file: put your photo in{" "}
+              <code className="rounded bg-muted px-1">public/images/profile.jpg</code> then
+              use <code className="rounded bg-muted px-1">/images/profile.jpg</code>. Or paste
+              any image URL (GitHub, Cloudinary, etc.).
+            </p>
+            {form.formState.errors.avatarUrl ? (
+              <p className="text-xs text-destructive">
+                {form.formState.errors.avatarUrl.message}
+              </p>
+            ) : null}
           </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">

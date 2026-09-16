@@ -61,7 +61,16 @@ export const aboutSchema = z.object({
   bio: z.string().min(20, "Bio must be at least 20 characters"),
   headline: z.string().or(z.literal("")).optional(),
   resumeUrl: z.string().url().or(z.literal("")).optional(),
-  avatarUrl: z.string().url().or(z.literal("")).optional(),
+  avatarUrl: z
+    .string()
+    .refine(
+      (value) =>
+        value === "" ||
+        value.startsWith("/") ||
+        /^https?:\/\//i.test(value),
+      "Use a full URL (https://...) or a local path like /images/profile.jpg"
+    )
+    .optional(),
   location: z.string().or(z.literal("")).optional(),
   availability: z.string().or(z.literal("")).optional(),
 });
