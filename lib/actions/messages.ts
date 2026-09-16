@@ -35,6 +35,9 @@ export async function upsertAbout(input: AboutInput): Promise<ActionResult<{ id:
       headline: parsed.data.headline || null,
       resumeUrl: parsed.data.resumeUrl || null,
       avatarUrl: parsed.data.avatarUrl || null,
+      linkedinUrl: parsed.data.linkedinUrl || null,
+      githubUrl: parsed.data.githubUrl || null,
+      email: parsed.data.email || null,
       location: parsed.data.location || null,
       availability: parsed.data.availability || null,
     };

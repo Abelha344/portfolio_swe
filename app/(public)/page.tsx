@@ -33,6 +33,9 @@ export default async function HomePage() {
         bio={about?.bio}
         resumeUrl={about?.resumeUrl}
         avatarUrl={about?.avatarUrl}
+        linkedinUrl={about?.linkedinUrl}
+        githubUrl={about?.githubUrl}
+        email={about?.email}
       />
       <TechStackGrid skills={skills} />
       <ProjectsShowcase projects={projects} />

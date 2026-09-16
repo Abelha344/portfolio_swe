@@ -93,6 +93,9 @@ model About {
   headline     String?
   resumeUrl    String?
   avatarUrl    String?
+  linkedinUrl  String?
+  githubUrl    String?
+  email        String?
   location     String?
   availability String?
   updatedAt    DateTime @updatedAt

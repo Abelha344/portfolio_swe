@@ -153,6 +153,9 @@ export function AboutAdmin({
       headline: about?.headline ?? "",
       resumeUrl: about?.resumeUrl ?? "",
       avatarUrl: about?.avatarUrl ?? "",
+      linkedinUrl: about?.linkedinUrl ?? "",
+      githubUrl: about?.githubUrl ?? "",
+      email: about?.email ?? "",
       location: about?.location ?? "",
       availability: about?.availability ?? "",
     },
@@ -183,6 +186,9 @@ export function AboutAdmin({
               errors.bio?.message ||
               errors.avatarUrl?.message ||
               errors.resumeUrl?.message ||
+              errors.linkedinUrl?.message ||
+              errors.githubUrl?.message ||
+              errors.email?.message ||
               errors.headline?.message ||
               "Please fix the highlighted fields.";
             setMessage(first);
@@ -204,6 +210,56 @@ export function AboutAdmin({
             <p className="text-xs text-destructive">{form.formState.errors.bio.message}</p>
           ) : null}
         </div>
+
+        <div className="space-y-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
+          <div>
+            <h3 className="text-base font-semibold text-foreground">
+              LinkedIn, GitHub & Email
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              These links appear on your public homepage hero buttons.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="linkedinUrl">LinkedIn URL</Label>
+            <Input
+              id="linkedinUrl"
+              {...form.register("linkedinUrl")}
+              placeholder="https://www.linkedin.com/in/your-profile"
+            />
+            {form.formState.errors.linkedinUrl ? (
+              <p className="text-xs text-destructive">
+                {form.formState.errors.linkedinUrl.message}
+              </p>
+            ) : null}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="githubUrl">GitHub URL</Label>
+            <Input
+              id="githubUrl"
+              {...form.register("githubUrl")}
+              placeholder="https://github.com/your-username"
+            />
+            {form.formState.errors.githubUrl ? (
+              <p className="text-xs text-destructive">
+                {form.formState.errors.githubUrl.message}
+              </p>
+            ) : null}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="contactEmail">Email</Label>
+            <Input
+              id="contactEmail"
+              {...form.register("email")}
+              type="email"
+              placeholder="you@example.com"
+            />
+            {form.formState.errors.email ? (
+              <p className="text-xs text-destructive">{form.formState.errors.email.message}</p>
+            ) : null}
+          </div>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label>Resume URL</Label>

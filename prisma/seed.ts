@@ -34,8 +34,10 @@ async function main() {
       headline: "Full-Stack Developer building resilient products",
       bio: "I specialize in Next.js, React, Express, Nest.js, Django, FastAPI, PostgreSQL, MySQL, and MongoDB. I design end-to-end systems — from polished interfaces to production APIs and ERP workflows.",
       resumeUrl: "https://example.com/resume.pdf",
-      avatarUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+      avatarUrl: "/images/profile.jpg",
+      linkedinUrl: "https://github.com/Abelha344",
+      githubUrl: "https://github.com/Abelha344",
+      email: "abelhailu0427@gmail.com",
       location: "Remote",
       availability: "Open to full-time & contract roles",
     },

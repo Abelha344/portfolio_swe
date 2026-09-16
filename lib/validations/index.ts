@@ -70,6 +70,15 @@ export const aboutSchema = z.object({
       z.string().url("Avatar must be a valid URL"),
     ])
     .optional(),
+  linkedinUrl: z
+    .union([z.literal(""), z.string().url("LinkedIn must be a valid URL")])
+    .optional(),
+  githubUrl: z
+    .union([z.literal(""), z.string().url("GitHub must be a valid URL")])
+    .optional(),
+  email: z
+    .union([z.literal(""), z.string().email("Enter a valid email")])
+    .optional(),
   location: z.string().optional().or(z.literal("")),
   availability: z.string().optional().or(z.literal("")),
 });

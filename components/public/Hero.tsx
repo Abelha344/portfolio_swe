@@ -10,13 +10,14 @@ type HeroProps = {
   bio?: string | null;
   resumeUrl?: string | null;
   avatarUrl?: string | null;
+  linkedinUrl?: string | null;
+  githubUrl?: string | null;
+  email?: string | null;
 };
 
-const FALLBACK_AVATAR =
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80";
-
-const GITHUB_URL = "https://github.com/Abelha344";
-const EMAIL = "abelhailu0427@gmail.com";
+const FALLBACK_AVATAR = "/images/profile.jpg";
+const FALLBACK_GITHUB = "https://github.com/Abelha344";
+const FALLBACK_EMAIL = "abelhailu0427@gmail.com";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -44,7 +45,19 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
-export function Hero({ headline, bio, resumeUrl, avatarUrl }: HeroProps) {
+export function Hero({
+  headline,
+  bio,
+  resumeUrl,
+  avatarUrl,
+  linkedinUrl,
+  githubUrl,
+  email,
+}: HeroProps) {
+  const github = githubUrl || FALLBACK_GITHUB;
+  const linkedin = linkedinUrl || github;
+  const contactEmail = email || FALLBACK_EMAIL;
+
   return (
     <section id="hero" className="relative overflow-hidden border-b border-border">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(56,189,248,0.15),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgba(34,197,94,0.08),_transparent_40%)]" />
@@ -118,19 +131,19 @@ export function Hero({ headline, bio, resumeUrl, avatarUrl }: HeroProps) {
             </a>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+            <a href={linkedin} target="_blank" rel="noopener noreferrer">
               <LinkedInIcon className="size-4" />
               LinkedIn
             </a>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+            <a href={github} target="_blank" rel="noopener noreferrer">
               <GitHubIcon className="size-4" />
               GitHub
             </a>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <a href={`mailto:${EMAIL}`}>
+            <a href={`mailto:${contactEmail}`}>
               <Mail className="size-4" />
               Email
             </a>
