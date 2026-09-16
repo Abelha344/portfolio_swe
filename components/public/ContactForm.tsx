@@ -53,7 +53,7 @@ export function ContactForm() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" {...form.register("name")} placeholder="Jane Doe" />
+              <Input id="name" {...form.register("name")} placeholder="Your name" />
               {form.formState.errors.name ? (
                 <p className="text-xs text-destructive">{form.formState.errors.name.message}</p>
               ) : null}
@@ -64,7 +64,7 @@ export function ContactForm() {
                 id="email"
                 type="email"
                 {...form.register("email")}
-                placeholder="jane@company.com"
+                placeholder="you@example.com"
               />
               {form.formState.errors.email ? (
                 <p className="text-xs text-destructive">{form.formState.errors.email.message}</p>
@@ -74,7 +74,7 @@ export function ContactForm() {
 
           <div className="space-y-2">
             <Label htmlFor="subject">Subject</Label>
-            <Input id="subject" {...form.register("subject")} placeholder="Project inquiry" />
+            <Input id="subject" {...form.register("subject")} placeholder="Your subject" />
             {form.formState.errors.subject ? (
               <p className="text-xs text-destructive">{form.formState.errors.subject.message}</p>
             ) : null}
@@ -86,7 +86,7 @@ export function ContactForm() {
               id="body"
               rows={5}
               {...form.register("body")}
-              placeholder="Tell me about the opportunity or problem you're solving..."
+              placeholder="Your message"
             />
             {form.formState.errors.body ? (
               <p className="text-xs text-destructive">{form.formState.errors.body.message}</p>
