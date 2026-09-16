@@ -59,20 +59,19 @@ export const experienceSchema = z.object({
 
 export const aboutSchema = z.object({
   bio: z.string().min(20, "Bio must be at least 20 characters"),
-  headline: z.string().or(z.literal("")).optional(),
-  resumeUrl: z.string().url().or(z.literal("")).optional(),
-  avatarUrl: z
-    .string()
-    .refine(
-      (value) =>
-        value === "" ||
-        value.startsWith("/") ||
-        /^https?:\/\//i.test(value),
-      "Use a full URL (https://...) or a local path like /images/profile.jpg"
-    )
+  headline: z.string().optional().or(z.literal("")),
+  resumeUrl: z
+    .union([z.literal(""), z.string().url("Resume must be a valid URL")])
     .optional(),
-  location: z.string().or(z.literal("")).optional(),
-  availability: z.string().or(z.literal("")).optional(),
+  avatarUrl: z
+    .union([
+      z.literal(""),
+      z.string().startsWith("/", "Local path must start with /"),
+      z.string().url("Avatar must be a valid URL"),
+    ])
+    .optional(),
+  location: z.string().optional().or(z.literal("")),
+  availability: z.string().optional().or(z.literal("")),
 });
 
 export const messageSchema = z.object({

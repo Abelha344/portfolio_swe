@@ -169,28 +169,50 @@ export function AboutAdmin({
 
       <form
         className="space-y-4 rounded-xl border border-border bg-card/40 p-5"
-        onSubmit={form.handleSubmit((values) => {
-          setMessage(null);
-          startTransition(async () => {
-            const result = await upsertAbout(values);
-            setMessage(result.success ? "About section saved." : result.error);
-            if (result.success) router.refresh();
-          });
-        })}
+        onSubmit={form.handleSubmit(
+          (values) => {
+            setMessage(null);
+            startTransition(async () => {
+              const result = await upsertAbout(values);
+              setMessage(result.success ? "Updates saved." : result.error);
+              if (result.success) router.refresh();
+            });
+          },
+          (errors) => {
+            const first =
+              errors.bio?.message ||
+              errors.avatarUrl?.message ||
+              errors.resumeUrl?.message ||
+              errors.headline?.message ||
+              "Please fix the highlighted fields.";
+            setMessage(first);
+          }
+        )}
       >
         <h2 className="text-lg font-semibold">Bio & resume</h2>
         <div className="space-y-2">
           <Label>Headline</Label>
           <Input {...form.register("headline")} />
+          {form.formState.errors.headline ? (
+            <p className="text-xs text-destructive">{form.formState.errors.headline.message}</p>
+          ) : null}
         </div>
         <div className="space-y-2">
           <Label>Bio</Label>
           <Textarea rows={5} {...form.register("bio")} />
+          {form.formState.errors.bio ? (
+            <p className="text-xs text-destructive">{form.formState.errors.bio.message}</p>
+          ) : null}
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label>Resume URL</Label>
             <Input {...form.register("resumeUrl")} placeholder="https://..." />
+            {form.formState.errors.resumeUrl ? (
+              <p className="text-xs text-destructive">
+                {form.formState.errors.resumeUrl.message}
+              </p>
+            ) : null}
           </div>
           <div className="space-y-2">
             <Label>Avatar URL</Label>
@@ -199,10 +221,8 @@ export function AboutAdmin({
               placeholder="/images/profile.jpg or https://..."
             />
             <p className="text-xs text-muted-foreground">
-              Local file: put your photo in{" "}
-              <code className="rounded bg-muted px-1">public/images/profile.jpg</code> then
-              use <code className="rounded bg-muted px-1">/images/profile.jpg</code>. Or paste
-              any image URL (GitHub, Cloudinary, etc.).
+              Use <code className="rounded bg-muted px-1">/images/profile.jpg</code> for your
+              local photo, or paste any https image URL.
             </p>
             {form.formState.errors.avatarUrl ? (
               <p className="text-xs text-destructive">
@@ -221,10 +241,18 @@ export function AboutAdmin({
             <Input {...form.register("availability")} placeholder="Open to opportunities" />
           </div>
         </div>
-        {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
+        {message ? (
+          <p
+            className={`text-sm ${
+              message === "Updates saved." ? "text-emerald-400" : "text-destructive"
+            }`}
+          >
+            {message}
+          </p>
+        ) : null}
         <Button type="submit" disabled={pending}>
           {pending ? <Loader2 className="size-4 animate-spin" /> : null}
-          Save about
+          Save updates
         </Button>
       </form>
 
